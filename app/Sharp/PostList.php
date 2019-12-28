@@ -25,6 +25,10 @@ class PostList extends SharpEntityList
                 ->setLabel('Created')
                 ->setSortable()
         )->addDataContainer(
+            EntityListDataContainer::make('category')
+                ->setLabel('Category')
+                ->setSortable()
+        )->addDataContainer(
             EntityListDataContainer::make('published')
                 ->setLabel('State')
                 ->setSortable()
@@ -37,9 +41,10 @@ class PostList extends SharpEntityList
 
     public function buildListLayout()
     {
-        $this->addColumn('title', 6)
+        $this->addColumn('title', 5)
             ->addColumn('image', 2)
-            ->addColumn('published', 2)
+            ->addColumn('category', 2)
+            ->addColumn('published', 1)
             ->addColumn('created_at', 2);
     }
 

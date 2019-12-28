@@ -11,6 +11,7 @@ use Code16\Sharp\Form\Fields\SharpFormUploadField;
 use Code16\Sharp\Form\Fields\SharpFormWysiwygField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\SharpForm;
+use Code16\Sharp\Form\Fields\SharpFormSelectField;
 
 class PostForm extends SharpForm
 {
@@ -27,8 +28,12 @@ class PostForm extends SharpForm
     public function update($id, array $data)
     {
         $post = $id ? Post::findOrFail($id) : new Post();
-        $post->title = $data['title'];
-        $post->body = $data['body'];
+        if (!empty($data['newcategory'])) {
+            $data['category'] = $data['newcategory'];
+        }
+
+        unset($data['newcategory']);
+
         $post->order = 0;
         $this->save($post, $data);
     }
@@ -46,26 +51,41 @@ class PostForm extends SharpForm
         );
         $this->addField(
             SharpFormWysiwygField::make('body')
-            ->setLabel('Body')
+                ->setLabel('Body')
         );
         $this->addField(
             SharpFormUploadField::make('image')
-            ->setFileFilterImages()
-            ->setCropRatio("1:1")
-            ->setStorageDisk("local")
-            ->setLabel('Image')
+                ->setFileFilterImages()
+                ->setCropRatio("1:1")
+                ->setStorageDisk("local")
+                ->setLabel('Image')
+        );
+        $this->addField(
+            SharpFormSelectField::make(
+                'category',
+                Post::all()
+                    ->pluck('category')
+                    ->mapWithKeys(function ($category) {
+                        return [$category => $category];
+                    })
+                    ->all() // TODO: do this more effectively
+            )->setLabel("Category")
+        );
+        $this->addField(
+            SharpFormTextField::make('newcategory')
+                ->setLabel("New category")
         );
         $this->addField(
             SharpFormListField::make('attachments')
-            ->setLabel('Attachments')
-            ->setAddable()
-            ->setRemovable()
-            ->addItemField(
-                SharpFormTextField::make('label')->setLabel('Label')
-            )
-            ->addItemField(
-                SharpFormTextField::make('url')->setLabel('Url')
-            )
+                ->setLabel('Attachments')
+                ->setAddable()
+                ->setRemovable()
+                ->addItemField(
+                    SharpFormTextField::make('label')->setLabel('Label')
+                )
+                ->addItemField(
+                    SharpFormTextField::make('url')->setLabel('Url')
+                )
         );
     }
 
@@ -80,9 +100,10 @@ class PostForm extends SharpForm
         $this->addColumn(
             6,
             function (FormLayoutColumn $column) {
+                $column->withFields('category', 'newcategory');
                 $column->withSingleField("attachments", function (FormLayoutColumn $listItem) {
                     $listItem->withSingleField("label")
-                             ->withSingleField("url");
+                        ->withSingleField("url");
                 });
             }
         );
