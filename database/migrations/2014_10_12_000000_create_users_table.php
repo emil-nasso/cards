@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\User;
 
 class CreateUsersTable extends Migration
 {
@@ -23,11 +22,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        $user = new User();
-        $user->name = "Emil";
-        $user->password = "password";
-        $user->email = "nasso@nasso.se";
-        $user->save();
     }
 
     /**
