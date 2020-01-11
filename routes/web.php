@@ -14,7 +14,13 @@ use App\Category;
 */
 
 Route::get('/', function () {
-    $categories = Category::with(['posts','posts.attachments'])->orderBy('order', 'ASC')->get();
+    $categories = Category::with(['posts', 'posts.attachments', 'posts.image'])->orderBy('order', 'ASC')->get();
+    $categories->each(function ($category) {
+        $category->posts->each(function ($post) {
+            if ($post->image) {
+                $post->image->url = $post->image->thumbnail(128);
+            }
+        });
+    });
     return view('index', compact('categories'));
 });
-

@@ -4,6 +4,7 @@
             <h2 class="text-2xl">{{ category.name }}</h2>
             <div class="border rounded mb-4" v-for="post in category.posts" v-bind:key="post.id">
                 <div class="text-lg font-bold">{{ post.title }}</div>
+                <img class="rounded" v-if="post.image" :src="post.image.custom_properties.url"/>
                 <div class="" v-html="post.body"/>
                 <div>
                     <ul>
@@ -26,7 +27,7 @@
             }
         },
         mounted() {
-            console.log(this.posts);
+            console.log(this.categories);
         }
     }
 </script>
