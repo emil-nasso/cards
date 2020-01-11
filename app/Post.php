@@ -11,6 +11,11 @@ class Post extends Model
         return $this->hasMany(Attachment::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function image()
     {
         return $this->morphOne(Media::class, "model");

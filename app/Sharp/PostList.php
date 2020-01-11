@@ -25,7 +25,7 @@ class PostList extends SharpEntityList
                 ->setLabel('Created')
                 ->setSortable()
         )->addDataContainer(
-            EntityListDataContainer::make('category')
+            EntityListDataContainer::make('category:name')
                 ->setLabel('Category')
                 ->setSortable()
         )->addDataContainer(
@@ -43,7 +43,7 @@ class PostList extends SharpEntityList
     {
         $this->addColumn('title', 5)
             ->addColumn('image', 2)
-            ->addColumn('category', 2)
+            ->addColumn('category:name', 2)
             ->addColumn('published', 1)
             ->addColumn('created_at', 2);
     }
@@ -54,7 +54,8 @@ class PostList extends SharpEntityList
             ->setSearchable()
             ->setDefaultSort('order', 'asc')
             ->setPaginated()
-            ->addFilter('state', PostPublishedFilter::class)
+            ->addFilter('State', PostPublishedFilter::class)
+            ->addFilter('Category', PostCategoryFilter::class)
             // ->setEntityState('published', PostPublishedState::class)
             ->setReorderable(new PostReorderHandler());
     }
@@ -72,8 +73,12 @@ class PostList extends SharpEntityList
             }
         }
 
-        if (!is_null($params->filterFor("state"))) {
-            $posts->where("published", $params->filterFor("state"));
+        if (!is_null($params->filterFor("State"))) {
+            $posts->where("published", $params->filterFor("State"));
+        }
+
+        if (!is_null($params->filterFor("Category"))) {
+            $posts->where("category_id", $params->filterFor("Category"));
         }
 
         $this->setCustomTransformer(

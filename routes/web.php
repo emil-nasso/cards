@@ -1,6 +1,6 @@
 <?php
 
-use App\Post;
+use App\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,7 @@ use App\Post;
 */
 
 Route::get('/', function () {
-    $posts = Post::all();
-    return view('index', compact('posts'));
+    $categories = Category::with(['posts'])->orderBy('order', 'ASC')->get();
+    return view('index', compact('categories'));
 });
 

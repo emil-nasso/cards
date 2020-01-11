@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <posts :posts="{{$posts}}"></posts>
+    <posts :categories="{{$categories}}"></posts>
 @endsection

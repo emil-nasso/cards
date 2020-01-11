@@ -12,6 +12,7 @@ use Code16\Sharp\Form\Fields\SharpFormWysiwygField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\SharpForm;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
+use App\Category;
 
 class PostForm extends SharpForm
 {
@@ -21,19 +22,13 @@ class PostForm extends SharpForm
     {
         $this->setCustomTransformer('image', new FormUploadModelTransformer());
         return $this->transform(
-            Post::with(['attachments', 'image'])->findOrFail($id)
+            Post::with(['attachments', 'image', 'category'])->findOrFail($id)
         );
     }
 
     public function update($id, array $data)
     {
         $post = $id ? Post::findOrFail($id) : new Post();
-        if (!empty($data['newcategory'])) {
-            $data['category'] = $data['newcategory'];
-        }
-
-        unset($data['newcategory']);
-
         $post->order = 0;
         $this->save($post, $data);
     }
@@ -62,18 +57,13 @@ class PostForm extends SharpForm
         );
         $this->addField(
             SharpFormSelectField::make(
-                'category',
-                Post::all()
-                    ->pluck('category')
+                'category_id',
+                Category::all()
                     ->mapWithKeys(function ($category) {
-                        return [$category => $category];
+                        return [$category->id => $category->name];
                     })
-                    ->all() // TODO: do this more effectively
+                    ->all()
             )->setLabel("Category")
-        );
-        $this->addField(
-            SharpFormTextField::make('newcategory')
-                ->setLabel("New category")
         );
         $this->addField(
             SharpFormListField::make('attachments')
@@ -100,7 +90,7 @@ class PostForm extends SharpForm
         $this->addColumn(
             6,
             function (FormLayoutColumn $column) {
-                $column->withFields('category', 'newcategory');
+                $column->withFields('category_id');
                 $column->withSingleField("attachments", function (FormLayoutColumn $listItem) {
                     $listItem->withSingleField("label")
                         ->withSingleField("url");
