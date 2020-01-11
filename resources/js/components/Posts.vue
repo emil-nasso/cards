@@ -1,12 +1,8 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card" v-for="post in posts" v-bind:key="post.id">
-                    <div class="card-header">{{ post.title }}</div>
-                    <div class="card-body" v-html="post.body"/>
-                </div>
-            </div>
+    <div>
+        <div class="border rounded" v-for="post in posts" v-bind:key="post.id">
+            <div class="text-lg font-bold">{{ post.title }}</div>
+            <div class="" v-html="post.body"/>
         </div>
     </div>
 </template>
