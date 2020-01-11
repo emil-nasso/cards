@@ -21,6 +21,12 @@ class PostForm extends SharpForm
     public function find($id): array
     {
         $this->setCustomTransformer('image', new FormUploadModelTransformer());
+        $this->setCustomTransformer(
+            "category_id",
+            function($category_id) {
+                return (int)$category_id;
+            }
+        );
         return $this->transform(
             Post::with(['attachments', 'image', 'category'])->findOrFail($id)
         );
