@@ -5,6 +5,13 @@
             <div class="border rounded mb-4" v-for="post in category.posts" v-bind:key="post.id">
                 <div class="text-lg font-bold">{{ post.title }}</div>
                 <div class="" v-html="post.body"/>
+                <div>
+                    <ul>
+                        <li v-for="attachment in post.attachments" v-bind:key="attachment.id">
+                            <a :href="attachment.url" class="text-blue-500 underline">{{ attachment.label }}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

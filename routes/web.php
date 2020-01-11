@@ -14,7 +14,7 @@ use App\Category;
 */
 
 Route::get('/', function () {
-    $categories = Category::with(['posts'])->orderBy('order', 'ASC')->get();
+    $categories = Category::with(['posts','posts.attachments'])->orderBy('order', 'ASC')->get();
     return view('index', compact('categories'));
 });
 
