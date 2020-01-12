@@ -1,5 +1,5 @@
 # Buildstep: Php dependencies
-FROM php:7.3-apache as php-deps
+FROM php:7.4-apache as php-deps
 
 RUN apt-get update && apt-get install -y git unzip
 
@@ -23,7 +23,7 @@ COPY --from=php-deps /app .
 RUN npm install && npm run production
 
 # Runtime container
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
