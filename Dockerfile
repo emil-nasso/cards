@@ -25,6 +25,13 @@ RUN npm install && npm run production
 # Runtime container
 FROM php:7.3-apache
 
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
 WORKDIR /var/www
 COPY --from=node /app /var/www
 
