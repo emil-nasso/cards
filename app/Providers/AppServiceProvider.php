@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // A hack because laravel sets the scheme to the same as
+        // the current request when generating url.
+        // As we are behind traefik in production we need to force https.
+        if (config('app.env') === 'prod') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 }
