@@ -55,7 +55,9 @@ class AttachmentList extends SharpEntityList
         if ($params->hasSearch()) {
             foreach ($params->searchWords() as $word) {
                 $attachments->where(function ($query) use ($word) {
-                    $query->orWhere('label', 'like', $word)
+                    $query
+                        ->orWhere('description', 'like', $word)
+                        ->orWhere('label', 'like', $word)
                         ->orWhere('url', 'like', $word);
                 });
             }

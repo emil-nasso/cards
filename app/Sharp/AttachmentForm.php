@@ -55,7 +55,7 @@ class AttachmentForm extends SharpForm
         $this->addColumn(
             5,
             function (FormLayoutColumn $column) {
-                $column->withSingleField('label');
+                $column->withSingleField('description');
             }
         );
         $this->addColumn(
