@@ -88,15 +88,9 @@ class PostForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(
-            6,
+            12,
             function (FormLayoutColumn $column) {
-                $column->withFields('title', 'body', 'image');
-            }
-        );
-        $this->addColumn(
-            6,
-            function (FormLayoutColumn $column) {
-                $column->withFields('category_id');
+                $column->withFields('title', 'body', 'category_id', 'image');
                 $column->withSingleField("attachments", function (FormLayoutColumn $listItem) {
                     $listItem->withSingleField("label")
                         ->withSingleField("url");
