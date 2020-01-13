@@ -4,10 +4,10 @@
             <h2 class="text-2xl">{{ category.name }}</h2>
             <div class="flex flex-wrap -mx-2">
                 <div class="mb-4 w-full px-2 lg:w-1/2 lg:flex" v-for="post in category.posts" v-bind:key="post.id">
-                    <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+                    <div v-if="post.image" class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
                         style="background-image: url('https://via.placeholder.com/150')"/>
                     <!-- <img class="rounded" v-if="post.image" :src="post.image.custom_properties.url"/> -->
-                    <div class="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                    <div v-bind:class="{ 'lg:border-l-0 lg:rounded-b-none' : post.image, 'border-t rounded': !post.image }" class="w-full border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                         <div class="mb-8">
                             <div class="text-gray-900 font-bold text-xl mb-2">{{ post.title }}</div>
                             <p class="text-gray-700 text-base" v-html="post.body"></p>
