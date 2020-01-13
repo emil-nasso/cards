@@ -23,6 +23,7 @@ class AttachmentForm extends SharpForm
     public function update($id, array $data)
     {
         $attachment = $id ? Attachment::findOrFail($id) : new Attachment();
+        $attachment->description = $data['description'];
         $attachment->label = $data['label'];
         $attachment->url = $data['url'];
         $this->save($attachment, $data);
@@ -36,6 +37,10 @@ class AttachmentForm extends SharpForm
     public function buildFormFields()
     {
         $this->addField(
+            SharpFormTextField::make('description')
+                ->setLabel('Description')
+        );
+        $this->addField(
             SharpFormTextField::make('label')
                 ->setLabel('Label (link-text)')
         );
@@ -48,13 +53,19 @@ class AttachmentForm extends SharpForm
     public function buildFormLayout()
     {
         $this->addColumn(
-            6,
+            5,
             function (FormLayoutColumn $column) {
                 $column->withSingleField('label');
             }
         );
         $this->addColumn(
-            6,
+            3,
+            function (FormLayoutColumn $column) {
+                $column->withSingleField('label');
+            }
+        );
+        $this->addColumn(
+            4,
             function (FormLayoutColumn $column) {
                 $column->withSingleField('url');
             }

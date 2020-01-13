@@ -17,6 +17,9 @@ class AttachmentList extends SharpEntityList
     public function buildListDataContainers()
     {
         $this->addDataContainer(
+            EntityListDataContainer::make('description')
+                ->setLabel('Description')
+        )->addDataContainer(
             EntityListDataContainer::make('label')
                 ->setLabel('Label')
         )->addDataContainer(
@@ -30,8 +33,10 @@ class AttachmentList extends SharpEntityList
 
     public function buildListLayout()
     {
-        $this->addColumn('label', 4)
-            ->addColumn('url', 4)
+        $this
+            ->addColumn('description', 4)
+            ->addColumn('label', 2)
+            ->addColumn('url', 2)
             ->addColumn('post:title', 4);
     }
 

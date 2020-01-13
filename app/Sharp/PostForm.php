@@ -77,6 +77,9 @@ class PostForm extends SharpForm
                 ->setAddable()
                 ->setRemovable()
                 ->addItemField(
+                    SharpFormTextField::make('description')->setLabel('Description')
+                )
+                ->addItemField(
                     SharpFormTextField::make('label')->setLabel('Label')
                 )
                 ->addItemField(
@@ -92,7 +95,9 @@ class PostForm extends SharpForm
             function (FormLayoutColumn $column) {
                 $column->withFields('title', 'body', 'category_id', 'image');
                 $column->withSingleField("attachments", function (FormLayoutColumn $listItem) {
-                    $listItem->withSingleField("label")
+                    $listItem
+                        ->withSingleField("description")
+                        ->withSingleField("label")
                         ->withSingleField("url");
                 });
             }

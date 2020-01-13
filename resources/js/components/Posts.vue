@@ -12,9 +12,9 @@
                             <div class="text-gray-900 font-bold text-xl mb-2">{{ post.title }}</div>
                             <p class="text-gray-700 text-base" v-html="post.body"></p>
                         </div>
-                        <div class="flex items-center">
-                            <div v-for="attachment in post.attachments" v-bind:key="attachment.id">
-                                    <a :href="attachment.url" class="text-gray-400 text-sm underline">{{ attachment.label }}</a>
+                        <div>
+                            <div class="text-sm text-gray-600" v-for="attachment in post.attachments" v-bind:key="attachment.id">
+                                <span class="italic">{{ attachment.description }}</span> - <a :href="attachment.url" class="text-gray-400 underline">{{ attachment.label }}</a>
                             </div>
                         </div>
                     </div>

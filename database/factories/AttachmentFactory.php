@@ -8,6 +8,7 @@ use App\Post;
 
 $factory->define(Attachment::class, function (Faker $faker) {
     return [
+        'description' => $faker->sentence(5, true),
         'label' => $faker->word,
         'url' => $faker->url,
         'post_id' => Post::inRandomOrder()->first()->id,
