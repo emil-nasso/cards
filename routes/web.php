@@ -18,7 +18,7 @@ Route::get('/', function () {
     $categories->each(function ($category) {
         $category->posts->each(function ($post) {
             if ($post->image) {
-                $post->image->url = $post->image->thumbnail(128);
+                $post->image->url = $post->image->thumbnail(1280);
             }
         });
     });
