@@ -21,11 +21,23 @@ class CategoryList extends SharpEntityList
                 ->setLabel('Name')
                 ->setSortable()
         );
+        $this->addDataContainer(
+            EntityListDataContainer::make('slug')
+                ->setLabel('Slug')
+                ->setSortable()
+        );
+        $this->addDataContainer(
+            EntityListDataContainer::make('description')
+                ->setLabel('Description')
+                ->setSortable()
+        );
     }
 
     public function buildListLayout()
     {
-        $this->addColumn('name', 12);
+        $this->addColumn('name', 5);
+        $this->addColumn('description', 5);
+        $this->addColumn('slug', 2);
     }
 
     public function buildListConfig()

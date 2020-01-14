@@ -9,6 +9,8 @@ use Faker\Generator as Faker;
 $factory->define(Post::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(),
+        'slug' => $faker->word(),
+        'menu_label' => $faker->word(),
         'body' => $faker->text(200),
         'category_id' => Category::inRandomOrder()->first()->id,
         'order' => $faker->randomNumber(4),

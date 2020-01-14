@@ -20,23 +20,29 @@ class PostList extends SharpEntityList
             EntityListDataContainer::make('title')
                 ->setLabel('Title')
                 ->setSortable()
-        )->addDataContainer(
+        );
+        $this->addDataContainer(
             EntityListDataContainer::make('created_at')
                 ->setLabel('Created')
                 ->setSortable()
-        )->addDataContainer(
+        );
+
+        $this->addDataContainer(
             EntityListDataContainer::make('category:name')
                 ->setLabel('Category')
                 ->setSortable()
-        )->addDataContainer(
+        );
+
+        $this->addDataContainer(
             EntityListDataContainer::make('published')
                 ->setLabel('State')
                 ->setSortable()
-        )->addDataContainer(
+        );
+
+        $this->addDataContainer(
             EntityListDataContainer::make('image')
                 ->setLabel('Image')
-        )
-        ;
+        );
     }
 
     public function buildListLayout()

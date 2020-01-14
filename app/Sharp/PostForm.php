@@ -51,6 +51,14 @@ class PostForm extends SharpForm
                 ->setLabel('Title')
         );
         $this->addField(
+            SharpFormTextField::make('slug')
+                ->setLabel('Slug')
+        );
+        $this->addField(
+            SharpFormTextField::make('menu_label')
+                ->setLabel('Menu label')
+        );
+        $this->addField(
             SharpFormWysiwygField::make('body')
                 ->setLabel('Body')
         );
@@ -92,7 +100,7 @@ class PostForm extends SharpForm
         $this->addColumn(
             12,
             function (FormLayoutColumn $column) {
-                $column->withFields('title', 'body', 'category_id', 'image');
+                $column->withFields('title', 'body', 'category_id', 'slug', 'menu_label', 'image');
                 $column->withSingleField("attachments", function (FormLayoutColumn $listItem) {
                     $listItem
                         ->withSingleField("description")

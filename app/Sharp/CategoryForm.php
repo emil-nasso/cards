@@ -37,6 +37,14 @@ class CategoryForm extends SharpForm
             SharpFormTextField::make('name')
                 ->setLabel('Name')
         );
+        $this->addField(
+            SharpFormTextField::make('description')
+                ->setLabel('Description')
+        );
+        $this->addField(
+            SharpFormTextField::make('slug')
+                ->setLabel('Slug')
+        );
     }
 
     public function buildFormLayout()
@@ -44,7 +52,7 @@ class CategoryForm extends SharpForm
         $this->addColumn(
             12,
             function (FormLayoutColumn $column) {
-                $column->withFields('name');
+                $column->withFields('name', 'description', 'slug');
             }
         );
     }
