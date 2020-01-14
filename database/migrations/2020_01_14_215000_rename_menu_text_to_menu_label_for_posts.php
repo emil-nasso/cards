@@ -8,8 +8,10 @@ class RenameMenuTextToMenuLabelForPosts extends Migration
 {
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::table('posts', function (Blueprint $table) {
             $table->renameColumn('menu_text', 'menu_label');
         });
+        Schema::enableForeignKeyConstraints();
     }
 }
