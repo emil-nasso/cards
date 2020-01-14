@@ -8,7 +8,12 @@
                         v-bind:style="bgStyle(post)"/>
                     <div v-bind:class="{ 'lg:border-l-0 lg:rounded-b-none' : post.image, 'border-t rounded': !post.image }" class="w-full border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                         <div class="mb-8">
-                            <div class="text-gray-900 font-bold text-xl mb-2">{{ post.title }}</div>
+                            <div class="flex justify-between">
+                                <div class="text-gray-900 font-bold text-xl mb-2">{{ post.title }}</div>
+                                <a class="group" :href="'#' + post.slug" :id="post.slug">
+                                    <span class="text-gray-600 group-hover:text-gray-800 group-hover:underline">#</span><span class="text-gray-500 group-hover:text-gray-800 group-hover:underline">{{ post.slug }}</span>
+                                </a>
+                            </div>
                             <p class="text-gray-700 text-base" v-html="post.body"></p>
                         </div>
                         <div>

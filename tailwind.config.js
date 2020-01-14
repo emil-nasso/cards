@@ -2,6 +2,9 @@ module.exports = {
   theme: {
     extend: {}
   },
-  variants: {},
+  variants: {
+    textColor: ['group-hover'],
+    textDecoration: ['group-hover']
+  },
   plugins: []
 }
