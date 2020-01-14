@@ -34,8 +34,16 @@ class PostForm extends SharpForm
 
     public function update($id, array $data)
     {
-        $post = $id ? Post::findOrFail($id) : new Post();
-        $post->order = 0;
+        if ($id) {
+            $post = Post::findOrFail($id);
+        } else {
+            $post = new Post();
+            $last = Post::query()
+                ->where('category_id', $data['category_id'])
+                ->orderBy('order', 'DESC')
+                ->first();
+            $post->order = $last ? $last->order + 1 : 0;
+        }
         $this->save($post, $data);
     }
 

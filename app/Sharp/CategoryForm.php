@@ -21,8 +21,15 @@ class CategoryForm extends SharpForm
 
     public function update($id, array $data)
     {
-        $category = $id ? Category::findOrFail($id) : new Category();
-        $category->order = 0;
+        if ($id) {
+            $category = Category::findOrFail($id);
+        } else {
+            $category = new Category();
+            $last = Category::query()
+                ->orderBy('order', 'DESC')
+                ->first();
+            $category->order = $last ? $last->order + 1 : 0;
+        }
         $this->save($category, $data);
     }
 
