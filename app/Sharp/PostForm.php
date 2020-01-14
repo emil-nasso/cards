@@ -57,7 +57,6 @@ class PostForm extends SharpForm
         $this->addField(
             SharpFormUploadField::make('image')
                 ->setFileFilterImages()
-                ->setCropRatio("1:1")
                 ->setStorageDisk("local")
                 ->setLabel('Image')
         );
