@@ -1,6 +1,7 @@
 <template>
     <div>
         <div v-for="category in categories" v-bind:key="category.id" class="pb-8 mx-2">
+            <a v-bind:id="category.slug"/>
             <h2 class="text-2xl">{{ category.name }}</h2>
             <div class="flex flex-wrap -mx-2">
                 <div class="mb-4 w-full px-2 lg:w-1/2 lg:flex" v-for="post in category.posts" v-bind:key="post.id">

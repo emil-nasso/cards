@@ -21,6 +21,7 @@
 </head>
 <body>
     <div id="app">
+        @yield('menu')
         <main class="container mx-auto py-8">
             @yield('content')
         </main>
