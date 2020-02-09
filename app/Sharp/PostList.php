@@ -6,6 +6,7 @@ use App\Post;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\SharpEntityList;
+use App\Sharp\PostPublishedState;
 
 class PostList extends SharpEntityList
 {
@@ -32,13 +33,6 @@ class PostList extends SharpEntityList
                 ->setLabel('Category')
                 ->setSortable()
         );
-
-        $this->addDataContainer(
-            EntityListDataContainer::make('published')
-                ->setLabel('State')
-                ->setSortable()
-        );
-
         $this->addDataContainer(
             EntityListDataContainer::make('image')
                 ->setLabel('Image')
@@ -50,7 +44,6 @@ class PostList extends SharpEntityList
         $this->addColumn('title', 5)
             ->addColumn('image', 2)
             ->addColumn('category:name', 2)
-            ->addColumn('published', 1)
             ->addColumn('created_at', 2);
     }
 
@@ -62,13 +55,17 @@ class PostList extends SharpEntityList
             ->setPaginated()
             ->addFilter('State', PostPublishedFilter::class)
             ->addFilter('Category', PostCategoryFilter::class)
-            // ->setEntityState('published', PostPublishedState::class)
+            ->setEntityState('published', PostPublishedState::class)
             ->setReorderable(new PostReorderHandler());
     }
 
     public function getListData(EntityListQueryParams $params)
     {
-        $posts = Post::query()->orderBy($params->sortedBy(), $params->sortedDir());
+        $posts = Post::query();
+
+        if ($params->sortedBy() && $params->sortedDir()) {
+            $posts->orderBy($params->sortedBy(), $params->sortedDir());
+        }
 
         if ($params->hasSearch()) {
             foreach ($params->searchWords() as $word) {

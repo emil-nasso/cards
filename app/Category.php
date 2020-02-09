@@ -8,6 +8,6 @@ class Category extends Model
 {
     public function posts()
     {
-        return $this->hasMany(Post::class)->orderBy('order','ASC');
+        return $this->hasMany(Post::class)->where('published', 1)->orderBy('order','ASC');
     }   
 }

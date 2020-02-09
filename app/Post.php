@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $casts = [
+        'published' => 'integer',
+    ];
+
+    protected $fillable = [
+        'published'
+    ];
+
     public function attachments()
     {
         return $this->hasMany(Attachment::class);

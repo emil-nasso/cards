@@ -12,8 +12,8 @@ class PostPublishedState extends EntityState
      */
     protected function buildStates()
     {
-        $this->addState("1", "Published", self::PRIMARY_COLOR);
-        $this->addState("0", "Draft", self::SECONDARY_COLOR);
+        $this->addState(1, "Published", self::PRIMARY_COLOR);
+        $this->addState(0, "Draft", self::SECONDARY_COLOR);
     }
 
     protected function updateState($instanceId, $stateId)
