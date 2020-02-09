@@ -9,9 +9,9 @@
                     <li v-for="post in category.posts" v-bind:key="post.id">
                         <a
                             v-bind:href="'#' + post.slug"
-                            class="pl-4"
+                            class="border-l-4 pl-4 border-white"
                             v-on:click="$emit('transition-to', post.slug, true)"
-                            v-bind:class="{'text-red-500': currentSlug == post.slug}"
+                            v-bind:class="{'border-green-700': currentSlug == post.slug}"
                         >
                             {{ post.menu_label }}
                         </a>
