@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('menu')
-    <navigation-menu :categories="{{$categories}}"></navigation-menu>
-@endsection
-
 @section('content')
-    <posts :categories="{{$categories}}"></posts>
+    <vego-app :categories="{{$categories}}"></vego-app>
 @endsection

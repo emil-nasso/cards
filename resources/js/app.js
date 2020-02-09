@@ -19,8 +19,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('posts', require('./components/Posts.vue').default);
-Vue.component('navigation-menu', require('./components/Menu.vue').default);
+Vue.component('vego-posts', require('./components/Posts.vue').default);
+Vue.component('vego-sidebar', require('./components/Sidebar.vue').default);
+Vue.component('vego-top-menu', require('./components/TopMenu.vue').default);
+Vue.component('vego-app', require('./components/App.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -1,26 +1,31 @@
 <template>
-    <div>
-        <div v-for="category in categories" v-bind:key="category.id" class="pb-8 mx-2">
-            <a v-bind:id="category.slug"/>
-            <h2 class="text-2xl">{{ category.name }}</h2>
-            <div class="flex flex-wrap -mx-2">
-                <div class="mb-4 w-full px-2 lg:w-1/2 lg:flex" v-for="post in category.posts" v-bind:key="post.id">
-                    <div v-if="post.image" class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                        v-bind:style="bgStyle(post)"/>
-                    <div v-bind:class="{ 'lg:border-l-0 lg:rounded-b-none' : post.image, 'border-t rounded': !post.image }" class="w-full border-r border-b border-l border-gray-400 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                        <div class="mb-8">
-                            <div class="flex justify-between">
-                                <div class="text-gray-900 font-bold text-xl mb-2">{{ post.title }}</div>
-                                <a class="group" :href="'#' + post.slug" :id="post.slug">
-                                    <span class="text-gray-600 group-hover:text-gray-800 group-hover:underline">#</span><span class="text-gray-500 group-hover:text-gray-800 group-hover:underline">{{ post.slug }}</span>
-                                </a>
-                            </div>
-                            <p class="text-gray-700 text-base" v-html="post.body"></p>
-                        </div>
-                        <div>
-                            <div class="text-sm text-gray-600" v-for="attachment in post.attachments" v-bind:key="attachment.id">
-                                <span class="italic">{{ attachment.description }}</span> - <a :href="attachment.url" class="text-gray-400 underline">{{ attachment.label }}</a>
-                            </div>
+    <div class="">
+        <div v-for="category in categories" v-bind:key="category.id" class="pt-2 py-4 max-w-5xl">
+            <h2 class="text-3xl font-bold">{{ category.name }}</h2>
+            <div
+                v-for="post in category.posts"
+                v-bind:key="post.id"
+            >
+                <!-- Sroll target -->
+                <div :id="post.slug+'-scroll'" class="py-2"/>
+                <!-- Post -->
+                <div 
+                    class="px-4 bg-grey-200 rounded flex flex-col md:flex-row"
+                    :class="{'border-l-8 border-green-700': post.slug == currentSlug}"
+                    v-on:click="$emit('transition-to', post.slug)"
+                >
+                    <div v-if="post.image" class="md:w-1/4 md:h-auto h-32 bg-cover bg-no-repeat bg-center mr-4 rounded"
+                        v-bind:style="bgStyle(post)"
+                    />
+                    <div class="md:w-3/4">
+                        <a class="-mt-10" :href="'#' + post.slug"/>
+                        <span class="text-xl">{{ post.title }}</span>
+                        <a class="group" :href="'#' + post.slug" v-on:click="$emit('transition-to', post.slug, true)">
+                            <span class="group-hover:underline">#</span><span class="group-hover:underline">{{ post.slug }}</span>
+                        </a>
+                        <p class="text-gray-700 text-base" v-html="post.body"></p>
+                        <div class="text-sm text-gray-600" v-for="attachment in post.attachments" v-bind:key="attachment.id">
+                            <span class="italic">{{ attachment.description }}</span> - <a :href="attachment.url" class="text-gray-400 underline">{{ attachment.label }}</a>
                         </div>
                     </div>
                 </div>
@@ -31,14 +36,17 @@
 
 <script>
     export default {
+        data: function() {
+            return {};
+        },
         props: {
             categories: {
                 type: Array,
                 required: true
+            },
+            currentSlug: {
+                type: String
             }
-        },
-        mounted() {
-            console.log(this.categories);
         },
         methods: {
             bgStyle: function(post) {
